@@ -21,9 +21,11 @@ void    handler(int signal)
 
     if (signal == SIGUSR1)
         c = c + binary[i++];
-    if (signal == SIGUSR2)
+    else if (signal == SIGUSR2)
         i++;
-    printf("%i\n", c);
+    printf("sig = %i\n", signal);
+    printf("i = %i\n", i);
+    printf("c = %i\n", c);
     if (i == 8)
     {
         write(1, &c, 1); 

@@ -69,6 +69,7 @@ int	ft_atoi(const char *str)
 	}
 	return ((int)(result * sign));
 }
+
 /* int ft_atoi(const char *str)
 {
     int i;

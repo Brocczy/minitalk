@@ -10,8 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "client.h"
-#include <stdio.h>
+#include <unistd.h>
+#include <limits.h>
+#include <signal.h>
 
 void    ft_putnbr(int n)
 {
@@ -23,23 +24,15 @@ void    ft_putnbr(int n)
 void binary_conv(char c, int pid)
 {
     int i;
-    int s;
 
     i = -1;
-    
     while (++i < 8)
     {
-        s = (c << i) & 1;
-        if (s)
-        {
-            kill(pid, SIGUSR1);
-            usleep(100);
-        }
-        else
-        {
+        if (c >> i & 1)
             kill(pid, SIGUSR2);
-            usleep(100);
-        }
+        else
+            kill(pid, SIGUSR1);
+        usleep(100);
     }
 }
 

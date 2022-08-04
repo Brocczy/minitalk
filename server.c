@@ -10,19 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "server.h"
-#include <stdio.h>
+#include <unistd.h>
+#include <signal.h>
 
 void    handler(int signal)
 {
-    static int binary[8] = {1, 2, 4, 8, 16, 32 , 64, 128};
     static int i = 0;
     static char c = 0;
 
-    if (signal == SIGUSR1)
-        c = c + binary[i++];
-    else if (signal == SIGUSR2)
-        i++;
+    c = ((signal == SIGUSR2) << i++ | c);
     if (i == 8)
     {
         write(1, &c, 1); 
